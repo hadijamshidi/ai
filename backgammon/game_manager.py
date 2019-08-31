@@ -22,6 +22,13 @@ class Backgammon(object):
         self.state[start + 7] = -3
         self.state[start + 5] = -5
 
+    def get_number_of_out_pots(self, side):
+        if side == 1:
+            return self.state[0]
+        if side == -1:
+            return self.state[24]
+        raise Exception("{} side is invalid".format(side))
+
     def turn_manager(self, dice_pair=None):
         self.test()
         if self.side == 0:
@@ -192,17 +199,3 @@ class Backgammon(object):
             if side * sum(guys) != 15:
                 self.result = dict(finished=True, msg="how many guys for: {} ??")
                 # raise Exception("how many guys for: {} ??".format(side))
-
-
-def run():
-    game = Backgammon()
-    print(game.state)
-    game.turn_manager()
-    for i in range(100):
-        game.play(game.side)
-        if game.result['finished']:
-            print(game.result['msg'])
-            break
-
-
-run()
