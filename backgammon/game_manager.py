@@ -144,24 +144,6 @@ class Backgammon(object):
         # return self.check_moves(movements, side, status)
         return self.check_moves(movements, side, status)
 
-    # def play(self, side):
-    #     dice_pairs = self.roll_dice()
-    #     print("dices:", dice_pairs)
-    #     for dice_pair in dice_pairs:
-    #         print("dice:", dice_pair)
-    #         movements = self.get_movements(side=side, dice_pair=dice_pair)
-    #         if len(movements) == 0:
-    #             # print(self.state)
-    #             print("there is no move!")
-    #             self.turn_manager(dice_pair=dice_pair)
-    #             return 0
-    #         move = self.choice_move(movements, side)
-    #         # print("dice:", dice_pair, "\nmovements:", movements, "\nour move:", move)
-    #         print("our move:", move)
-    #         self.move(side, move)
-    #         print(self.state)
-    #         self.turn_manager(dice_pair=dice_pair)
-
     def test(self):
         if self.state[26] == 15:
             self.result = dict(finished=True, msg="player 1 won!")

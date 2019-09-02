@@ -51,3 +51,6 @@ class Simulator:
 def run_simulation():
     simulator = Simulator(game=Backgammon)
     simulator.run()
+
+
+run_simulation()
