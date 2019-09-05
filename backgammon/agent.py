@@ -40,6 +40,8 @@ class Agent:
         return ratings
 
     def calc_movement_reward(self, movement):
+        self.game_snap.move(self.side, movement)
+        reward = self.game_snap.rate_current_side_state(self.side)
         return np.random.randint(10)
 
     def default_move(self, movements):

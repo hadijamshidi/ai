@@ -162,3 +162,10 @@ class Backgammon(object):
             if side * sum(guys) != 15:
                 self.result = dict(finished=True, msg="how many guys for: {} ??")
                 # raise Exception("how many guys for: {} ??".format(side))
+
+    def get_number_of_single_pots(self, side):
+        return len(list(filter(lambda x: x * side == 1, self.state[self.start: self.start + 24])))
+
+    def rate_current_side_state(self, side):
+        out_pots = abs(self.get_number_of_out_pots(side=side))
+        # single
