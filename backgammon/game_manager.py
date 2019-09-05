@@ -160,12 +160,23 @@ class Backgammon(object):
         for side in [-1, 1]:
             guys = filter(lambda x: x * side > 0, self.state)
             if side * sum(guys) != 15:
-                self.result = dict(finished=True, msg="how many guys for: {} ??")
+                self.result = dict(finished=True, msg="how many guys for: {} ??".format(side))
                 # raise Exception("how many guys for: {} ??".format(side))
 
     def get_number_of_single_pots(self, side):
         return len(list(filter(lambda x: x * side == 1, self.state[self.start: self.start + 24])))
 
+    def get_distance_to_target(self, side):
+        target_index = self.get_outbox_index(side=side)
+        distance = 0
+        for idx in range(self.start, self.start + 24):
+            if self.state[idx] * side > side:
+                distance += (target_index - idx) ** 2
+        return distance
+
     def rate_current_side_state(self, side):
         out_pots = abs(self.get_number_of_out_pots(side=side))
-        # single
+        single_pots = self.get_number_of_out_pots(side=side)
+        distance_to_target = self.get_distance_to_target(side=side)
+        penalty = out_pots + single_pots + 2 * distance_to_target
+        return -penalty

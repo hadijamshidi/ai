@@ -18,9 +18,11 @@ class Agent:
         game_snap = Backgammon()
         for key, value in game.__dict__.items():
             game_snap.__setattr__(key, value)
+        game_snap.__setattr__('name', 'game_snap')
         return game_snap
 
     def choice_move(self, movements, side):
+        # return self.default_move(movements)
         if not side == Agent.target_side:
             return self.default_move(movements)
         print("movements:", len(movements), movements)
@@ -34,15 +36,14 @@ class Agent:
         return highest_rewarded_actions[0][1]
 
     def calc_all_movements_reward(self, movements):
-        ratings = []
-        for movement in movements:
-            ratings.append([self.calc_movement_reward(movement), movement])
-        return ratings
+        return [[self.calc_movement_reward(movement), movement] for movement in movements]
 
     def calc_movement_reward(self, movement):
         self.game_snap.move(self.side, movement)
         reward = self.game_snap.rate_current_side_state(self.side)
-        return np.random.randint(10)
+        self.game_snap = self.reset_game_snap(self.game)
+        return reward
 
     def default_move(self, movements):
-        return movements[0]
+        default_idx = np.random.choice(list(range(len(movements))))
+        return movements[default_idx]

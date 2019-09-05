@@ -32,6 +32,7 @@ class Simulator:
                 return 0
             agent = Agent(game=self.game, side=side)
             move = agent.choice_move(movements, side)
+            print("CHOSEN MOVE:", move, "SIDE:", side)
             print("our move:", move)
             self.game.move(side, move)
             print(self.game.state)
@@ -43,7 +44,7 @@ class Simulator:
         for i in range(moves_num):
             self.play(self.game.side)
             if self.game.result['finished']:
-                print(self.game.result['msg'])
+                print(self.game.name, self.game.result['msg'])
                 break
         print("FINISHED")
 
